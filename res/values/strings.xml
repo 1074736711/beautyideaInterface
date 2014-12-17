@@ -1,5 +1,11 @@
 <resources>
 
-    <string name="app_name">beautyideaInterface</string>
+
+    <!--mainActivity-->
+    <string name="app_name">最美创意</string>
+    <string name="mainTab">所有</string>
+    <string name="secondTab">分类</string>
+    <string name="activity_title">最美创意</string>
+
 
 </resources>
