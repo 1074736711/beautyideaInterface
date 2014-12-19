@@ -6,7 +6,9 @@ import android.annotation.SuppressLint;
 import android.app.ActionBar;
 import android.app.ActionBar.Tab;
 import android.app.Activity;
+import android.app.Application;
 import android.app.FragmentTransaction;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -37,45 +39,46 @@ import com.beautyideainterface.utils.Path_Url;
 
 @SuppressLint("NewApi")
 public class MainActivity extends FragmentActivity implements ActionBar.TabListener, ViewPager.OnPageChangeListener {
-	private ViewPager mViewPager;
-	private ArrayList<View> mViews;
-	private TabPagerAdapter mPagerAdapter;
-	private ActionBar mActionBar;
-	private ArrayList<Tab> mTabs;
-	TextView  tv ;
-		  @Override
-		protected void onCreate(Bundle savedInstanceState) {
-			// TODO Auto-generated method stub
-			super.onCreate(savedInstanceState);
-			
-			setContentView(R.layout.mainlayout); 
-			final StringBuffer sb  =new StringBuffer();
+    private ViewPager mViewPager;
+    private ArrayList<View> mViews;
+    private TabPagerAdapter mPagerAdapter;
+    private ActionBar mActionBar;
+    private ArrayList<Tab> mTabs;
+    TextView tv;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        // TODO Auto-generated method stub
+        super.onCreate(savedInstanceState);
+
+        setContentView(R.layout.mainlayout);
+        final StringBuffer sb = new StringBuffer();
 //			tv = (TextView) findViewById(R.id.text);
-			RequestQueue queue  = Volley.newRequestQueue(this);
-			StringRequest request = new StringRequest(Path_Url.PATH_URL1+0+Path_Url.PATH_URL2,
-										new Listener<String>() {
+        RequestQueue queue = Volley.newRequestQueue(this);
+        StringRequest request = new StringRequest(Path_Url.PATH_URL1 + 0 + Path_Url.PATH_URL2,
+                new Listener<String>() {
 
-											@Override
-											public void onResponse(
-													String response) {
-												ArrayList<List_informations>temp=new ParseJson(response).parselistInfo();
-												for(List_informations info :temp)
-												{
-													//sb.append(info);
-													sb.append(info.toString()+"\n");
-										
-												}
-												Log.i("sb", sb.toString());
-											}
-										}, new ErrorListener() {
+                    @Override
+                    public void onResponse(
+                            String response) {
+                        ArrayList<List_informations> temp = new ParseJson(response).parselistInfo();
+                        for (List_informations info : temp) {
+                            //sb.append(info);
+                            sb.append(info.toString() + "\n");
 
-											@Override
-											public void onErrorResponse(
-													VolleyError error) {
-												
-											}
-										});
-			queue.add(request);
+                        }
+//                        Log.i("sb", sb.toString());
+                    }
+                },
+                new ErrorListener() {
+
+                    @Override
+                    public void onErrorResponse(
+                            VolleyError error) {
+
+                    }
+                });
+        queue.add(request);
 //			 Button button= (Button) findViewById(R.id.button1);
 //			  button.setOnClickListener(new OnClickListener() {
 //
@@ -88,8 +91,8 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 //				}
 //			});
 
-			  configureActionBar();
-			
+        configureActionBar();
+
 //			 ActionBar actionBar  = this.getActionBar(); 
 //			 actionBar.setDisplayHomeAsUpEnabled(true);	
 //			 actionBar.setDisplayShowHomeEnabled(true);	
@@ -100,76 +103,75 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 //			 bTab.setText("2");
 //			 actionBar.addTab(aTab);
 //			 actionBar.addTab(bTab);
-			// aTab.setTabListener(listener)
-		}
+        // aTab.setTabListener(listener)
+    }
 
-	private void configureActionBar(){
-		mActionBar = getActionBar();
+    private void configureActionBar() {
+        mActionBar = getActionBar();
 //		mActionBar.setDisplayHomeAsUpEnabled(true);
 //		mActionBar.setDisplayShowHomeEnabled(true);
-		mActionBar.setHomeButtonEnabled(true);
-		mActionBar.setIcon(R.drawable.ic_menu_32px);
-		mActionBar.setTitle(R.string.activity_title);
-		mActionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
-		mTabs = new ArrayList<Tab>();
-		Tab mainTab = mActionBar.newTab() ;
-		Tab secondTab = mActionBar.newTab();
-		mainTab.setText(getResources().getString(R.string.mainTab));
-		secondTab.setText(getResources().getString(R.string.secondTab));
+        mActionBar.setHomeButtonEnabled(true);
+        mActionBar.setIcon(R.drawable.ic_menu_32px);
+        mActionBar.setTitle(R.string.activity_title);
+        mActionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
+        mTabs = new ArrayList<Tab>();
+        Tab mainTab = mActionBar.newTab();
+        Tab secondTab = mActionBar.newTab();
+        mainTab.setText(getResources().getString(R.string.mainTab));
+        secondTab.setText(getResources().getString(R.string.secondTab));
 
-		mainTab.setTabListener(this);
-		secondTab.setTabListener(this);
-		mTabs.add(mainTab);
-		mTabs.add(secondTab);
-		mActionBar.addTab(mainTab);
-		mActionBar.addTab(secondTab);
+        mainTab.setTabListener(this);
+        secondTab.setTabListener(this);
+        mTabs.add(mainTab);
+        mTabs.add(secondTab);
+        mActionBar.addTab(mainTab);
+        mActionBar.addTab(secondTab);
 
-		//初始化viewpager
-		mViewPager = (ViewPager) findViewById(R.id.activity_viewPager);
-		mViews =new ArrayList<View>();
-		mViews.add(LayoutInflater.from(this).inflate(R.layout.fragment_main,null));
-		mViews.add(LayoutInflater.from(this).inflate(R.layout.fragment_second,null));
+        //初始化viewpager
+        mViewPager = (ViewPager) findViewById(R.id.activity_viewPager);
+        mViews = new ArrayList<View>();
+        mViews.add(LayoutInflater.from(this).inflate(R.layout.fragment_main, null));
+        mViews.add(LayoutInflater.from(this).inflate(R.layout.fragment_second, null));
 
-		mPagerAdapter = new TabPagerAdapter(getSupportFragmentManager());
-		mViewPager.setAdapter(mPagerAdapter);
-		mViewPager.setOnPageChangeListener(this);
+        mPagerAdapter = new TabPagerAdapter(getSupportFragmentManager());
+        mPagerAdapter.setContext(getApplicationContext());
+        mViewPager.setAdapter(mPagerAdapter);
+        mViewPager.setOnPageChangeListener(this);
 
-
-	}
-
-
-	@Override
-	public void onTabSelected(Tab tab, FragmentTransaction ft) {
-		if (mViewPager!=null){
-			mViewPager.setCurrentItem(tab.getPosition());
-		}
-	}
-
-	@Override
-	public void onTabUnselected(Tab tab, FragmentTransaction ft) {
-
-	}
-
-	@Override
-	public void onTabReselected(Tab tab, FragmentTransaction ft) {
-
-	}
+    }
 
 
+    @Override
+    public void onTabSelected(Tab tab, FragmentTransaction ft) {
+        if (mViewPager != null) {
+            mViewPager.setCurrentItem(tab.getPosition());
+        }
+    }
 
-	@Override
-	public void onPageScrolled(int i, float v, int i1) {
+    @Override
+    public void onTabUnselected(Tab tab, FragmentTransaction ft) {
 
-	}
+    }
 
-	@Override
-	public void onPageSelected(int i) {
-		mViewPager.setCurrentItem(i);
-		mActionBar.selectTab(mTabs.get(i));
-	}
+    @Override
+    public void onTabReselected(Tab tab, FragmentTransaction ft) {
 
-	@Override
-	public void onPageScrollStateChanged(int i) {
+    }
 
-	}
+
+    @Override
+    public void onPageScrolled(int i, float v, int i1) {
+
+    }
+
+    @Override
+    public void onPageSelected(int i) {
+        mViewPager.setCurrentItem(i);
+        mActionBar.selectTab(mTabs.get(i));
+    }
+
+    @Override
+    public void onPageScrollStateChanged(int i) {
+
+    }
 }
