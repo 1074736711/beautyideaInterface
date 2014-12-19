@@ -5,17 +5,10 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".mainActivity" >
-	 <TextView 
-	     android:id="@+id/text"
-	     android:layout_width="wrap_content"
-	     android:layout_height="wrap_content"
-		 android:text="HelloWorld"
-	     />
-
-	 <Button
-	     android:id="@+id/button1"
-	     android:layout_width="wrap_content"
-	     android:layout_height="wrap_content"
-	     android:text="滑入" />
+	<android.support.v4.view.ViewPager
+			android:id="@+id/activity_viewPager"
+			android:layout_width="match_parent"
+			android:layout_height="match_parent"
+			></android.support.v4.view.ViewPager>
 	 
 </LinearLayout>

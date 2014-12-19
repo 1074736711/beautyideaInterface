@@ -7,8 +7,8 @@ public class Path_Url {
 		 public static final String SEARCH_URL2="pageNo=";
 		 public static final String SEARCH_URL3="&deviceModel=H60-L01&plamformVersion=4.4.2&deviceName=HUAWEI&plamform=Android&pageSize=10&imieId=0B373AB327C4EB50C9F146B00D19DCD0";
 	//最美创意
-	public static final String PATH_URL1="http://115.28.54.40:8080/beautyideaInterface/api/v1/resources/getResourcesByModulesId?pageNo=";
-	public static final String PATH_URL2="&deviceModel=MI+1SC&plamformVersion=4.1.2&deviceName=Xiaomi&plamform=Android&pageSize=10&modulesId=10&imieId=78AFA7D44A50A8B9F35812443D4F0C9E";
+	public static final String PATH_URL1="http://115.28.54.40:8080/beautyideaInterface/api/v1/resources/getResources?pageNo=";
+	public static final String PATH_URL2="&deviceModel=H60L01&plamformVersion=4.4.2&deviceName=HUAWEI&plamform=Android&pageSize=10&imieId=0B373AB327C4EB50C9F146B00D19DCD0";
 	public static final int  MODEID_SY=10;
 	//MODEL
 	public static final String MODEL_LIST="http://115.28.54.40:8080/beautyideaInterface/api/v1/modules/getModules?deviceModel=H60-L01&plamformVersion=4.4.2&deviceName=HUAWEI&plamform=Android&imieId=0B373AB327C4EB50C9F146B00D19DCD0";	
